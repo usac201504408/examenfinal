@@ -10,9 +10,12 @@ qos = 2
 usuarioCarnet = "" #NUMERO DE CARNET DEL CLIENTE
 
 #se instancia la clase
-serverMain = serverClass.clienteClass(usuarioCarnet)
+serverMain = serverClass.serverClass(usuarioCarnet)
 serverMain.conectarMQTT()
 serverMain.iniciarLoggin()
+serverMain.conectarSocket()
+
+
 #suscribirse a todos los topics del archivo
 topics = lecturaArchivos.LecturaArchivo("topics.txt").getArreglo()
 
@@ -34,6 +37,7 @@ except KeyboardInterrupt:
 finally:
     serverMain.pararLoop() #Se mata el hilo que verifica los topics en el fondo
     serverMain.desconectarBroker() #Se desconecta del broker
-    # logging.info("Desconectado del broker. Saliendo...")
+    # logging.info("Desconectado del broker. Saliendo..
+    serverMain.NuevoServerTCP.desconectarSocket()
     serverMain.logginWriteInfo("Desconectado del broker. Saliendo...")
     # print("Desconectado del broker. Saliendo...")

@@ -12,7 +12,7 @@ import alive
 import servidorTCP
 
 
-class clienteClass(object):
+class serverClass(object):
 
     def __init__(self, usuarioCliente):
         self.usuarioCliente = usuarioCliente
@@ -33,7 +33,9 @@ class clienteClass(object):
             self.publicar("comandos/14/" + str(destinatario), trama_redireccion)
             print("Enviando comando FRR al cliente destino " + str(destinatario) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
             #se empieza la transferencia
-            pass
+            NuevoServerTCP = servidorTCP.servidorTCP('localhost' , 9800, 65495,9801) #Definimos los valores iniciales
+            NuevoServerTCP.mandarservidor()
+
         else: #es una sala, tengo que enciclar hasta mandar a todos, revisando quienes estan en esa sala
             #con el archivo de listado de personas asignadas a salas
             usuariosRegistrados = lecturaArchivos.LecturaArchivo("usuarios.txt").getArreglo()
@@ -107,8 +109,8 @@ class clienteClass(object):
             self.publicar("comandos/14/" + str(remitente), trama_ok)
             print("Se envio un comando OK al cliente " + str(remitente))
             #se procede a recibir el archivo del cliente MESSI
-            NuevoServerTCP = servidorTCP.servidorTCP('localhost' , 9800, 65495,9801)
-            NuevoServerTCP.recibirservidor()
+           
+            self.NuevoServerTCP.recibirservidor()
 
 
 
@@ -140,6 +142,10 @@ class clienteClass(object):
         self.client.on_publish = self.on_publish #Se configura la funcion "Handler" que se activa al publicar algo
         self.client.username_pw_set(MQTT_USER, MQTT_PASS) #Credenciales requeridas por el broker
         self.client.connect(host=MQTT_HOST, port = MQTT_PORT) #Conectar al servidor remoto
+
+    def conectarSocket(self):
+        self.NuevoServerTCP = servidorTCP.servidorTCP('localhost' , 9800, 65495,9801)
+        self.NuevoServerTCP.inicializarServerSocket()
         
 
     def logginWriteInfo(self, mensaje):

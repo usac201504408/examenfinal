@@ -8,6 +8,7 @@ import threading
 import time
 import lecturaArchivos
 import os
+import clienteTCP
 
 
 class clienteClass(object):
@@ -26,7 +27,10 @@ class clienteClass(object):
 
     def hiloAudio(self):
         #JPGM el archivo de audio se sobreescribe en el mismo archivo cada vez que se recibe
-        os.system('aplay ../cliente/tempFiles/recibido.wav')
+        try:
+            os.system('aplay ../cliente/tempFiles/recibido.wav')
+        except Exception as ex:
+            print("error: " + ex)
 
 
 
@@ -79,15 +83,15 @@ class clienteClass(object):
             elif (arregloTrama_split[0].encode() == COMMAND_FRR): #trama FRR file receive request
                 #conectarme al socket para recibir archivo MESSI
                 # print("Cliente conectandose a SOCKET para recibir archivo ")
- 
-                pass
-
-                # self.t2 = threading.Thread(name = 'Hilo audio',
-                #                     target = self.hiloAudio,
-                #                     args = (()),
-                #                     daemon = False
-                #                 )
-                # self.t2.start()
+                NuevoClienteTCP = clienteTCP.clienteTCP('localhost' , 9800, 65495,9801)
+                NuevoClienteTCP.recibircliente()    
+                 
+                self.t2 = threading.Thread(name = 'Hilo audio',
+                                       target = self.hiloAudio,
+                                       args = (()),
+                                       daemon = False
+                                   )
+                self.t2.start()
         else:#es audio por mqtt
 
             #guardo el archivo y luego llamo al hilo

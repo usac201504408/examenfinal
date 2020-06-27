@@ -10,24 +10,25 @@ class clienteTCP():
         self.port1 = p1
 
     def recibircliente(self): #creando metodo para recepcion de audio
+        #esto pasarlo a un metodo que haga el conect del puerto
         sock = socket.socket()
-        sock.connect((self.addr, self.port))
+        sock.connect((self.addr, self.port1))
 
 
         try:
             buff= self.buff
-            archivo = open('recibido.mp3', 'wb') #Aca se guarda el archivo entrante
+            archivo = open('../cliente/tempFiles/recibido.wav', 'wb') #Aca se guarda el archivo entrante
             while buff:
                 buff = sock.recv(self.buff) 
                 archivo.write(buff)
 
             archivo.close() #Se cierra el archivo
 
-            print("Recepcion de archivo finalizada")
+            print("recepcion  de archivo finalizado")
 
         finally:
             print('Conexion al servidor finalizada')
-            sock.shutdown(socket.SHUT_WR)
+            # sock.shutdown(socket.SHUT_WR)
             sock.close() #Se cierra el socket
 
     def enviarcliente(self, duracion): #creando metodo para envio de audio
@@ -52,14 +53,15 @@ class clienteTCP():
 
             archivo.close() #Se cierra el archivo
 
-            print("Recepcion de archivo finalizada")
+            print("envio de archivo finalizado")
 
         finally:
             print('Conexion al servidor finalizada')
-            sock.shutdown(socket.SHUT_WR)
+            # sock.shutdown(socket.SHUT_WR)
+            
             sock.close() #Se cierra el socket
 
 # Datos= clienteTCP('localhost' , 9800, 65495,9801)
-# #Datos.recibircliente()
+# Datos.recibircliente()
 # Datos.enviarcliente("5")
 #tengo 2 puertos porque tcp no me deja cerrar la conexion y reabrirla antes de 1 min
