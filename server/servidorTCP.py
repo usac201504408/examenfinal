@@ -68,6 +68,7 @@ class servidorTCP(): #creamos una clase para el servidor
                         f.write(buff)
                     f.close()
                 conn.close()
+                time.sleep(61)
                 print("\n\n recibido audio de: ", addr)
         except Exception as ex:
             print("Ocurrio un error...: " + str(ex))

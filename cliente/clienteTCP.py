@@ -55,7 +55,8 @@ class clienteTCP():
             archivo.close() #Se cierra el archivo
 
             print("envio de archivo finalizado")
-
+        except Exception as ex:
+            print("excepcion: " + str(ex))
         finally:
             print('Conexion al servidor finalizada')
             # sock.shutdown(socket.SHUT_WR)
