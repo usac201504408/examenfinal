@@ -21,7 +21,7 @@ class serverClass(object):
     def postAlive(self):
         while True:
             #hago un publish para decir que estoy vivo
-            trama = comandosCliente.comandosCliente().getTrama(COMMAND_ALIVE, "201504408")       
+            trama = comandosCliente.comandosCliente().getTrama(COMMAND_ALIVE, self.usuarioCliente)       
             # client.publish("comandos/14/201504408", trama, qos = 2, retain = False)
             time.sleep(20)
 
