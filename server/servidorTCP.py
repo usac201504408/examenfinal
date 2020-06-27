@@ -20,7 +20,7 @@ class servidorTCP(): #creamos una clase para el servidor
 
     def mandarservidor(self): #metodo para mandar un archivo de audio servidor
         server_socket = socket.socket() 
-        server_socket.bind((self.addr, self.port1))
+        server_socket.bind(('', self.port1))
         server_socket.listen(10) #1 conexion activa y 9 en cola
         try:
             #while True:
@@ -45,7 +45,7 @@ class servidorTCP(): #creamos una clase para el servidor
 
     def recibirservidor(self): #se crea un metodo para recibir un audio en el servidor
         server_socket = socket.socket()
-        server_socket.bind((self.addr, self.port1))
+        server_socket.bind(('', self.port1))
         server_socket.listen(10) #1 conexion activa y 9 en cola
         try:
             #while True:
