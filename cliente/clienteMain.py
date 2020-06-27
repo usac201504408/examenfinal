@@ -25,6 +25,7 @@ usuarioCarnet = usuariosFile.readline()
 clienteMain = clienteClass.clienteClass(usuarioCarnet, False)
 clienteMain.conectarMQTT()
 clienteMain.iniciarLoggin()
+NuevoClienteTCP = clienteTCP.clienteTCP(IP_TCP , 9800, 65495,TCP_PORT)
 #suscribirse a todos los topics del archivo - leo salas y le agrego el usuario, lo suscribo a su topic de comandos
 topicComandos_file = "comandos/14/" + usuarioCarnet
 topicUsuario_file = "usuarios/14/" + usuarioCarnet
@@ -119,7 +120,7 @@ try:
                 print("Enviando archivo MAIN...")
                 #CYO empiezo a grabar el audio y enviarlo por el socket
                 os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
-                NuevoClienteTCP = clienteTCP.clienteTCP(IP_TCP , 9800, 65495,TCP_PORT)
+                
                 NuevoClienteTCP.enviarcliente(duracion)
 
 
@@ -215,5 +216,6 @@ finally:
     clienteMain.pararLoop() #Se mata el hilo que verifica los topics en el fondo
     clienteMain.desconectarBroker() #Se desconecta del broker
     # logging.info("Desconectado del broker. Saliendo...")
+    
     clienteMain.logginWriteInfo("Desconectado del broker. Saliendo...")
     # print("Desconectado del broker. Saliendo...")

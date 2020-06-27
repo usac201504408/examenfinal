@@ -65,6 +65,9 @@ class clienteTCP():
             
             sock.close() #Se cierra el socket
 
+    
+
+
 # Datos= clienteTCP('localhost' , 9800, 65495,9801)
 # Datos.recibircliente()
 # Datos.enviarcliente("5")

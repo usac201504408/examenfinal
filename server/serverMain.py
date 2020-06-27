@@ -38,6 +38,6 @@ finally:
     serverMain.pararLoop() #Se mata el hilo que verifica los topics en el fondo
     serverMain.desconectarBroker() #Se desconecta del broker
     # logging.info("Desconectado del broker. Saliendo..
-    serverMain.NuevoServerTCP.desconectarSocket()
+    serverMain.desconectarSocket()
     serverMain.logginWriteInfo("Desconectado del broker. Saliendo...")
     # print("Desconectado del broker. Saliendo...")

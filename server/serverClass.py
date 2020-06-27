@@ -147,6 +147,9 @@ class serverClass(object):
     def conectarSocket(self):
         self.NuevoServerTCP = servidorTCP.servidorTCP( IP_TCP , 9800, 65495, TCP_PORT)
         self.NuevoServerTCP.inicializarServerSocket()
+
+    def desconectarSocket(self):
+        self.NuevoServerTCP.desconectarSocket()
         
 
     def logginWriteInfo(self, mensaje):
