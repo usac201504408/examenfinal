@@ -30,6 +30,7 @@ class serverClass(object):
         if(str(destinatario).isdigit() == True): #es un carnet
             trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_FRR,destinatario,fileSize)
             #client.publish("comandos/14/" + str(destinatario), trama_redireccion, qos = 2, retain = False)
+            
             self.publicar("comandos/14/" + str(destinatario), trama_redireccion)
             print("Enviando comando FRR al cliente destino " + str(destinatario) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
             #se empieza la transferencia

@@ -13,7 +13,7 @@ class clienteTCP():
         #esto pasarlo a un metodo que haga el conect del puerto
         sock = socket.socket()
         sock.connect((self.addr, self.port1))
-        
+        # sock.settimeout(30)
 
         try:
             buff= self.buff
@@ -35,6 +35,7 @@ class clienteTCP():
 
         sock = socket.socket()
         sock.connect((self.addr, self.port1))
+        # sock.settimeout(30)
         # segundos = input("Cuantos segundos deseas grabar? ")
         # logging.basicConfig(
         #     level = logging.DEBUG, 
