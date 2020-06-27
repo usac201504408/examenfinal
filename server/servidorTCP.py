@@ -13,15 +13,18 @@ class servidorTCP(): #creamos una clase para el servidor
         # self.server_socket.bind(('localhost', self.port1))
         # self.server_socket.listen(10) #1 conexion activa y 9 en cola
         # self.server_socket.setblocking(False)
+        self.server_socket = socket.socket() 
+        self.server_socket.bind(('', self.port1))
+        self.server_socket.listen(10) #1 conexion activa y 9 en cola
         
 
     
 
 
     def mandarservidor(self): #metodo para mandar un archivo de audio servidor
-        server_socket = socket.socket() 
-        server_socket.bind(('', self.port1))
-        server_socket.listen(10) #1 conexion activa y 9 en cola
+        # server_socket = socket.socket() 
+        # server_socket.bind(('', self.port1))
+        # server_socket.listen(10) #1 conexion activa y 9 en cola
         # server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # server_socket.settimeout(5)
 
@@ -30,7 +33,7 @@ class servidorTCP(): #creamos una clase para el servidor
             #while True:
                 # self.server_socket.listen(100)
                 print("\nEsperando conexion remota...\n")
-                conn, addr = server_socket.accept()
+                conn, addr = self.server_socket.accept()
                 print('Conexion establecida desde ', addr)
                 print('Enviando archivo de audio')
                 with open('../server/tempFiles/recibido.wav', 'rb') as f: #Se abre el archivo a enviar en BINARIO
@@ -49,9 +52,9 @@ class servidorTCP(): #creamos una clase para el servidor
             #self.server_socket.detach()
 
     def recibirservidor(self): #se crea un metodo para recibir un audio en el servidor
-        server_socket = socket.socket()
-        server_socket.bind(('', self.port1))
-        server_socket.listen(10) #1 conexion activa y 9 en cola
+        # server_socket = socket.socket()
+        # server_socket.bind(('', self.port1))
+        # server_socket.listen(10) #1 conexion activa y 9 en cola
         # server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
 
@@ -60,7 +63,7 @@ class servidorTCP(): #creamos una clase para el servidor
             #while True:
                 # server_socket.listen(100)
                 print("\nEsperando conexion remota...\n")
-                conn, addr = server_socket.accept()
+                conn, addr = self.server_socket.accept()
                 print('Conexion establecida desde ', addr)
                 print('recibiendo audio de cliente...')
                 buff=self.buff
@@ -86,8 +89,8 @@ class servidorTCP(): #creamos una clase para el servidor
         pass
 
     def desconectarSocket(self):
-        # server_socket.close()
-        pass
+        self.server_socket.close()
+        
         
 
 # Datos= servidorTCP('localhost' , 9800, 65495,9801) #Definimos los valores iniciales

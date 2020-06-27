@@ -34,8 +34,8 @@ class serverClass(object):
             self.publicar("comandos/14/" + str(destinatario), trama_redireccion)
             print("Enviando comando FRR al cliente destino " + str(destinatario) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
             #se empieza la transferencia
-            NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT) #Definimos los valores iniciales            
-            NuevoServerTCP.mandarservidor()
+            # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT) #Definimos los valores iniciales            
+            self.NuevoServerTCP.mandarservidor()
 
         else: #es una sala, tengo que enciclar hasta mandar a todos, revisando quienes estan en esa sala
             #con el archivo de listado de personas asignadas a salas
@@ -110,8 +110,8 @@ class serverClass(object):
             self.publicar("comandos/14/" + str(remitente), trama_ok)
             print("Se envio un comando OK al cliente " + str(remitente))
             #se procede a recibir el archivo del cliente MESSI
-            NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT)
-            NuevoServerTCP.recibirservidor()
+            # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT)
+            self.NuevoServerTCP.recibirservidor()
 
 
 
