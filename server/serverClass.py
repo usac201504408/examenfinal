@@ -58,6 +58,9 @@ class serverClass(object):
                             #client.publish("comandos/14/" + str(carnetDestino), trama_redireccion, qos = 2, retain = False)
                             self.publicar("comandos/14/" + str(carnetDestino), trama_redireccion)
                             print("Enviando comando FRR al cliente destino " + str(carnetDestino) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
+                            self.NuevoServerTCP.mandarservidor()
+
+
             print("termino de enviar a todos los usuarios en la sala")        
 
  

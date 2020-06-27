@@ -182,7 +182,15 @@ try:
 
                 #publico en topic de audios
                 #topic_audios = "audio/14/" + sala
+                # os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
+
+                print("Enviando archivo MAIN...")
+                #CYO empiezo a grabar el audio y enviarlo por el socket
                 os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
+                
+                NuevoClienteTCP.enviarcliente(duracion)
+
+
                 #ESTO SI FUNCIONA, NO FUNCIONA AL DEJARLO EN OTRA CLASE VERIFICAR POR QUE Y VER POR QUE NO PUBLICA EN EL TOPIC BIEN
                 # in_file = open("../cliente/tempFiles/enviar.wav", "rb") 
                 # data = in_file.read() 
