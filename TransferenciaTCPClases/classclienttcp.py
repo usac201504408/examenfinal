@@ -30,11 +30,11 @@ class cliente():
             sock.shutdown(socket.SHUT_WR)
             sock.close() #Se cierra el socket
 
-    def enviarcliente(self): #creando metodo para envio de audio
+    def enviarcliente(self, duracion): #creando metodo para envio de audio
 
         sock = socket.socket()
         sock.connect((self.addr, self.port1))
-        segundos = input("Cuantos segundos deseas grabar? ")
+        # segundos = input("Cuantos segundos deseas grabar? ")
         logging.basicConfig(
             level = logging.DEBUG, 
             format = '%(message)s'
@@ -42,11 +42,11 @@ class cliente():
 
 
         logging.info('Comenzando grabacion')
-        os.system('arecord -d '+segundos+' -f U8 -r 8000 prueba.mp3')
+        os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
 
         try:
             buff= self.buff
-            with open('prueba.mp3', 'rb') as archivo: #Aca se guarda el archivo entrante
+            with open('../cliente/tempFiles/enviar.wav', 'rb') as archivo: #Aca se guarda el archivo entrante
                 sock.sendfile(archivo,0)
 
             archivo.close() #Se cierra el archivo
@@ -59,6 +59,6 @@ class cliente():
             sock.close() #Se cierra el socket
 
 Datos= cliente('localhost' , 9800, 65495,9801)
-Datos.recibircliente()
-#Datos.enviarcliente()
+#Datos.recibircliente()
+Datos.enviarcliente("5")
 #tengo 2 puertos porque tcp no me deja cerrar la conexion y reabrirla antes de 1 min

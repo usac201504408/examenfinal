@@ -40,7 +40,7 @@ class servidor(): #creamos una clase para el servidor
                 print('Conexion establecida desde ', addr)
                 print('Enviando archivo de prueba de 5MB...')
                 buff=self.buff
-                with open('../cliente/tempFiles/recibido.wav', 'wb') as f: #Se abre el archivo a enviar en BINARIO
+                with open('../server/tempFiles/recibido.wav', 'wb') as f: #Se abre el archivo a enviar en BINARIO
                     while buff:
                         buff = conn.recv(self.buff)
                         f.write(buff)
