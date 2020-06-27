@@ -1,6 +1,7 @@
 import socket
 import os
 import logging
+import time
 
 class clienteTCP():
     def __init__(self,a,p,b,p1):
@@ -29,6 +30,7 @@ class clienteTCP():
         finally:
             print('Conexion al servidor finalizada')
             # sock.shutdown(socket.SHUT_WR)
+            
             sock.close() #Se cierra el socket
 
     def enviarcliente(self, duracion): #creando metodo para envio de audio
