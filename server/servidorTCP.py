@@ -52,6 +52,6 @@ class servidorTCP(): #creamos una clase para el servidor
             #server_socket.shutdown()
             server_socket.close()
 
-Datos= servidorTCP('localhost' , 9800, 65495,9801) #Definimos los valores iniciales
-#Datos.mandarservidor()
-Datos.recibirservidor()
+# Datos= servidorTCP('localhost' , 9800, 65495,9801) #Definimos los valores iniciales
+# #Datos.mandarservidor()
+# Datos.recibirservidor()

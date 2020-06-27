@@ -12,8 +12,9 @@ import os
 
 class clienteClass(object):
 
-    def __init__(self, usuarioCliente):
+    def __init__(self, usuarioCliente, esperandoRespuesta):
         self.usuarioCliente = usuarioCliente
+        self.esperandoRespuesta = esperandoRespuesta
         pass
 
     def postAlive(self):
@@ -69,8 +70,8 @@ class clienteClass(object):
                 pass
             elif(arregloTrama_split[0].encode() == COMMAND_OK): #trama OK del server
                 #bajo bandera de espera
-                global esperandoRespuesta
-                esperandoRespuesta = False    
+                self.esperandoRespuesta
+                self.esperandoRespuesta = False    
                 pass
             elif (arregloTrama_split[0].encode() == COMMAND_CHAT):
                 logging.info("El cliente del topic " + str(msg.topic) + " da el comando CHAT y dice: " + str(arregloTrama_split[1]))
@@ -79,14 +80,14 @@ class clienteClass(object):
                 #conectarme al socket para recibir archivo MESSI
                 # print("Cliente conectandose a SOCKET para recibir archivo ")
  
+                pass
 
-
-                self.t2 = threading.Thread(name = 'Hilo audio',
-                                    target = self.hiloAudio,
-                                    args = (()),
-                                    daemon = False
-                                )
-                self.t2.start()
+                # self.t2 = threading.Thread(name = 'Hilo audio',
+                #                     target = self.hiloAudio,
+                #                     args = (()),
+                #                     daemon = False
+                #                 )
+                # self.t2.start()
         else:#es audio por mqtt
 
             #guardo el archivo y luego llamo al hilo

@@ -1,5 +1,5 @@
 import clienteClass
-import classclienttcp
+import clienteTCP
 import lecturaArchivos
 import comandosCliente
 from broker import *
@@ -10,7 +10,7 @@ import os
 #variables globales:
 qos = 2
 #inicia loop principal
-esperandoRespuesta = False
+# esperandoRespuesta = False
 usuarioCarnet = "" #NUMERO DE CARNET DEL CLIENTE
 
 #extraer el carnet del cliente conectado -> servira para saber a que topic de comandos pertenece
@@ -22,7 +22,7 @@ usuarioCarnet = usuariosFile.readline()
 #     usuarioCarnet = str(usuario)
 
 #se instancia la clase
-clienteMain = clienteClass.clienteClass(usuarioCarnet)
+clienteMain = clienteClass.clienteClass(usuarioCarnet, False)
 clienteMain.conectarMQTT()
 clienteMain.iniciarLoggin()
 #suscribirse a todos los topics del archivo - leo salas y le agrego el usuario, lo suscribo a su topic de comandos
@@ -112,13 +112,15 @@ try:
                
                 clienteMain.publicar(topic, trama_FTR)
                 #se le pide al cliente que espere, levanto bandera
-                esperandoRespuesta = True
-                while esperandoRespuesta == True:                    
+                
+                while clienteMain.esperandoRespuesta == True:                    
                     pass
                  #me conecto al socket y realizo la transferencia -> MESSI
                 print("Enviando archivo MAIN...")
                 #CYO empiezo a grabar el audio y enviarlo por el socket
-
+                os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
+                NuevoClienteTCP = clienteTCP.clienteTCP('localhost' , 9800, 65495,9801)
+                NuevoClienteTCP.enviarcliente(duracion)
 
 
                 #publico en topic de audios

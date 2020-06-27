@@ -9,6 +9,7 @@ import time
 import lecturaArchivos
 import os
 import alive
+import servidorTCP
 
 
 class clienteClass(object):
@@ -106,6 +107,11 @@ class clienteClass(object):
             self.publicar("comandos/14/" + str(remitente), trama_ok)
             print("Se envio un comando OK al cliente " + str(remitente))
             #se procede a recibir el archivo del cliente MESSI
+            NuevoServerTCP = servidorTCP.servidorTCP('localhost' , 9800, 65495,9801)
+            NuevoServerTCP.recibirservidor()
+
+
+
             #luego de recibirlo procedo a hacer la negociacion con el destinatario, inicio un hilo
             nombreFile = "archivo.wav"
             destinatario = arregloTrama_split[1]
