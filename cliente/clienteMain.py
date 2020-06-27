@@ -24,11 +24,17 @@ usuarioCarnet = usuariosFile.readline()
 clienteMain = clienteClass.clienteClass(usuarioCarnet)
 clienteMain.conectarMQTT()
 clienteMain.iniciarLoggin()
-#suscribirse a todos los topics del archivo
-topics = lecturaArchivos.LecturaArchivo("topics.txt").getArreglo()
+#suscribirse a todos los topics del archivo - leo salas y le agrego el usuario, lo suscribo a su topic de comandos
+topicComandos_file = "comandos/14/" + usuarioCarnet
+topicUsuario_file = "usuarios/14/" + usuarioCarnet
+clienteMain.suscribirse(topicUsuario_file)
+clienteMain.suscribirse(topicComandos_file)
 
-for topic in topics:
-    clienteMain.suscribirse(topic)
+salasFile = lecturaArchivos.LecturaArchivo("salas.txt").getArreglo()
+
+for salaItem in salasFile:
+    topicSalaFile = "salas/14/" + salaItem
+    clienteMain.suscribirse(topicSalaFile)
 
 clienteMain.iniciarLoop()
 
@@ -117,6 +123,10 @@ try:
                 #PENDIENTE GRABAR EL AUDIO Y GUARDARLO
 
                 os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
+                
+                
+                
+                #codigo para parcial 2 - no se utiliza en esta version
                 #ESTO SI FUNCIONA, NO FUNCIONA AL DEJARLO EN OTRA CLASE VERIFICAR POR QUE Y VER POR QUE NO PUBLICA EN EL TOPIC BIEN
                 # in_file = open("../cliente/tempFiles/enviar.wav", "rb") 
                 # data = in_file.read() 
