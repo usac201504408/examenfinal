@@ -58,24 +58,24 @@ class clienteClass(object):
             arregloTrama_split = comandosCliente.comandosCliente().splitTramaCliente(msg.payload)
             # print(arregloTrama_split)
             
-            if(arregloTrama_split[0].encode() == binascii.unhexlify("04")): #alive no muestro al cliente
+            if(arregloTrama_split[0].encode() == COMMAND_ALIVE): #alive no muestro al cliente
                 pass
-            elif(arregloTrama_split[0].encode() == binascii.unhexlify("05")): #acknowledge del server
+            elif(arregloTrama_split[0].encode() == COMMAND_ACK): #acknowledge del server
                 # print("")
                 # print("El cliente del topic " + str(msg.topic) + " da el comando ACK y dice: " + str(arregloTrama_split[1]))
                 # logging.debug("El contenido del mensaje es: " + str(mensajedecode))
                 pass
-            elif(arregloTrama_split[0].encode() == binascii.unhexlify("03")): #trama FTR del ciente      
+            elif(arregloTrama_split[0].encode() == COMMAND_FTR): #trama FTR del ciente      
                 pass
-            elif(arregloTrama_split[0].encode() == binascii.unhexlify("06")): #trama OK del server
+            elif(arregloTrama_split[0].encode() == COMMAND_OK): #trama OK del server
                 #bajo bandera de espera
                 global esperandoRespuesta
                 esperandoRespuesta = False    
                 pass
-            elif (arregloTrama_split[0].encode() == binascii.unhexlify("08")):
+            elif (arregloTrama_split[0].encode() == COMMAND_CHAT):
                 logging.info("El cliente del topic " + str(msg.topic) + " da el comando CHAT y dice: " + str(arregloTrama_split[1]))
                
-            elif (arregloTrama_split[0].encode() == binascii.unhexlify("02")): #trama FRR file receive request
+            elif (arregloTrama_split[0].encode() == COMMAND_FRR): #trama FRR file receive request
                 #conectarme al socket para recibir archivo MESSI
                 # print("Cliente conectandose a SOCKET para recibir archivo ")
  
