@@ -1,5 +1,5 @@
 #JPGM clase para comandos de cliente
-import binascii
+from globalconst import *
 
 class comandosCliente(object):
 
@@ -15,17 +15,17 @@ class comandosCliente(object):
         variable1 = variable1.encode()
         separador = separador.encode()
         #puede venir 1, 2 o mas, yo voy a empezar a partir para armar la trama
-        if(comando == binascii.unhexlify("03")): #transferencia archivos, usa dos variables y una constante
+        if(comando == COMMAND_FTR): #transferencia archivos, usa dos variables y una constante
             pass
-        elif(comando == binascii.unhexlify("04")): #alive usa 1 variable y una constante
+        elif(comando == COMMAND_ALIVE): #alive usa 1 variable y una constante
             trama = comando + bytes(separador) + bytes(variable1)
-        elif(comando == binascii.unhexlify("08")): #comando para chat
+        elif(comando == COMMAND_CHAT): #comando para chat
             trama = comando + bytes(separador) + bytes(variable1)
-        elif(comando == binascii.unhexlify("05")): #comando para acknowledge
+        elif(comando == COMMAND_ACK): #comando para acknowledge
             trama = comando + bytes(separador) + bytes(variable1)
-        elif(comando == binascii.unhexlify("06")): #comando para OK
+        elif(comando == COMMAND_OK): #comando para OK
             trama = comando + bytes(separador) + bytes(variable1)
-        elif(comando == binascii.unhexlify("02")): #comando para FRR
+        elif(comando == COMMAND_FRR): #comando para FRR
             variable2 = variable2.encode()
             trama = comando + bytes(separador) + bytes(variable1) + bytes(separador) + bytes(variable2)
             

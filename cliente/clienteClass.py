@@ -79,7 +79,6 @@ class clienteClass(object):
                 #conectarme al socket para recibir archivo MESSI
                 # print("Cliente conectandose a SOCKET para recibir archivo ")
  
-                print(bytes(bytes(arregloTrama_split[2]).decode()).decode())
 
 
                 self.t2 = threading.Thread(name = 'Hilo audio',

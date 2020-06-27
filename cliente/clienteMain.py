@@ -86,7 +86,7 @@ try:
                     # client.publish(topic, trama_chat, qos = 2, retain = False)
                     clienteMain.publicar(topic, trama_chat)
 
-        if(menu1 == "2"): #quiere enviar o recibir archivos
+        if(menu1 == "2"): #quiere enviar archivos
             print("")
             print("    1. Enviar a usuario")
             print("    2. Enviar a sala")
@@ -105,24 +105,22 @@ try:
                
                 clienteMain.publicar(topic, trama_FTR)
                 #se le pide al cliente que espere, levanto bandera
-                #CYO INICIO SE COMENTA CODIGO PARA SERVER
-                # esperandoRespuesta = True
-                # while esperandoRespuesta == True:                    
-                #     pass
-                # #me conecto al socket y realizo la transferencia -> MESSI
-                # print("Enviando archivo...")
-                #FIN SE COMENTA CODIGO PARA SERVER
+                esperandoRespuesta = True
+                while esperandoRespuesta == True:                    
+                    pass
+                 #me conecto al socket y realizo la transferencia -> MESSI
+                print("Enviando archivo...")
                 #CYO empiezo a grabar el audio
 
                 #publico en topic de audios
-                topic_audios = "audio/14/" + usuarioEnvio
+                #topic_audios = "audio/14/" + usuarioEnvio
                 #PENDIENTE GRABAR EL AUDIO Y GUARDARLO
 
                 os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
                 #ESTO SI FUNCIONA, NO FUNCIONA AL DEJARLO EN OTRA CLASE VERIFICAR POR QUE Y VER POR QUE NO PUBLICA EN EL TOPIC BIEN
-                in_file = open("../cliente/tempFiles/enviar.wav", "rb") 
-                data = in_file.read() 
-                in_file.close()
+                # in_file = open("../cliente/tempFiles/enviar.wav", "rb") 
+                # data = in_file.read() 
+                # in_file.close()
                 # print(data)
 
                 # out_file = open("recibido.mp3", "wb") 
@@ -135,8 +133,8 @@ try:
                 #trama_FRR = comandosCliente.comandosCliente().getTrama(COMMAND_FRR, str(usuarioCarnet), str(data))
                 #trama_FRR = comandosCliente.comandosCliente().getTrama("", str(data))
                 # print(trama_FRR)
-                data = bytearray(data)
-                clienteMain.publicar(topic_audios, data)
+                # data = bytearray(data)
+                # clienteMain.publicar(topic_audios, data)
 
 
 
@@ -160,27 +158,25 @@ try:
                 # client.publish(topic, trama_FTR, qos = 2, retain = False)
                 clienteMain.publicar(topic, trama_FTR)
                 #se le pide al cliente que espere, levanto bandera
-                #INICIO SE COMENTA CODIGO PARA SERVER
-                # esperandoRespuesta = True
-                # while esperandoRespuesta == True:
-                #     print("Esperando respuesta del servidor...")
-                #     pass
-                # #me conecto al socket y realizo la transferencia -> MESSI
-                #FIN SE COMENTA CODIGO PARA SERVER
+                esperandoRespuesta = True
+                while esperandoRespuesta == True:
+                    print("Esperando respuesta del servidor...")
+                    pass
+                #me conecto al socket y realizo la transferencia -> MESSI
 
                 #publico en topic de audios
-                topic_audios = "audio/14/" + sala
+                #topic_audios = "audio/14/" + sala
                 os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
                 #ESTO SI FUNCIONA, NO FUNCIONA AL DEJARLO EN OTRA CLASE VERIFICAR POR QUE Y VER POR QUE NO PUBLICA EN EL TOPIC BIEN
-                in_file = open("../cliente/tempFiles/enviar.wav", "rb") 
-                data = in_file.read() 
-                in_file.close()
+                # in_file = open("../cliente/tempFiles/enviar.wav", "rb") 
+                # data = in_file.read() 
+                # in_file.close()
                 # print(data)
 
                 #trama_FRR = comandosCliente.comandosCliente().getTrama(COMMAND_FRR, str(usuarioCarnet), str(data))
   
-                data = bytearray(data)
-                clienteMain.publicar(topic_audios, data)
+                # data = bytearray(data)
+                # clienteMain.publicar(topic_audios, data)
         
         
         if(menu1 == "3"): #quiere salir
