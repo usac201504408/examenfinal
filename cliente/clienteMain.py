@@ -13,10 +13,12 @@ esperandoRespuesta = False
 usuarioCarnet = "" #NUMERO DE CARNET DEL CLIENTE
 
 #extraer el carnet del cliente conectado -> servira para saber a que topic de comandos pertenece
-usuariosFile = lecturaArchivos.LecturaArchivo("usuario.txt").getArreglo()
+#usuariosFile = lecturaArchivos.LecturaArchivo("usuario.txt").getArreglo()
+usuariosFile = open("usuario.txt", "r") 
+usuarioCarnet = usuariosFile.readline()
 
-for usuario in usuariosFile:
-    usuarioCarnet = str(usuario)
+# for usuario in usuariosFile:
+#     usuarioCarnet = str(usuario)
 
 #se instancia la clase
 clienteMain = clienteClass.clienteClass(usuarioCarnet)

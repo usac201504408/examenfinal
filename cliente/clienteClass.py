@@ -24,7 +24,7 @@ class clienteClass(object):
             time.sleep(20)
 
     def hiloAudio(self):
-        #JPGM RECIBIR EL ARCHIVO EN EL PARAMETRO ESTA PENDIENTE
+        #JPGM el archivo de audio se sobreescribe en el mismo archivo cada vez que se recibe
         os.system('aplay ../cliente/tempFiles/recibido.wav')
 
 
@@ -33,7 +33,7 @@ class clienteClass(object):
     def on_connect(self, client, userdata, flags, rc): 
         connectionText = "CONNACK recibido del broker con codigo: " + str(rc)
         logging.debug(connectionText)
-        self.t1 = threading.Thread(name = 'Contador de 1 segundo',
+        self.t1 = threading.Thread(name = 'Hilo alive',
                                 target = self.postAlive,
                                 args = (()),
                                 daemon = True
@@ -82,10 +82,10 @@ class clienteClass(object):
                 print(bytes(bytes(arregloTrama_split[2]).decode()).decode())
 
 
-                self.t2 = threading.Thread(name = 'Contador de 1 segundo',
+                self.t2 = threading.Thread(name = 'Hilo audio',
                                     target = self.hiloAudio,
                                     args = (()),
-                                    daemon = True
+                                    daemon = False
                                 )
                 self.t2.start()
         else:#es audio por mqtt
@@ -96,10 +96,10 @@ class clienteClass(object):
             out_file.write(msg.payload)
             out_file.close()
 
-            self.t2 = threading.Thread(name = 'Contador de 1 segundo',
+            self.t2 = threading.Thread(name = 'Hilo audio',
                                 target = self.hiloAudio,
                                 args = (()),
-                                daemon = True
+                                daemon = False
                             )
             self.t2.start()
             
