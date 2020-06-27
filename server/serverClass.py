@@ -53,7 +53,10 @@ class serverClass(object):
                         salaAsignada = objetoUsuario[index]
                         print("sala asignada de " + str(carnetDestino) + " es : " + str(salaAsignada))
                         if(salaAsignada == destinatario):
-                            #si tiene asignada la sala, entonces le envio la trama        
+                            #si tiene asignada la sala, entonces le envio la trama (SI ESTA VIVO) 
+                            
+                             
+                                   
                             trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_FRR,str(carnetDestino),fileSize)
                             #client.publish("comandos/14/" + str(carnetDestino), trama_redireccion, qos = 2, retain = False)
                             self.publicar("comandos/14/" + str(carnetDestino), trama_redireccion)

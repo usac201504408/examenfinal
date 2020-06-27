@@ -174,9 +174,9 @@ try:
                 # client.publish(topic, trama_FTR, qos = 2, retain = False)
                 clienteMain.publicar(topic, trama_FTR)
                 #se le pide al cliente que espere, levanto bandera
-                esperandoRespuesta = True
-                while esperandoRespuesta == True:
-                    print("Esperando respuesta del servidor...")
+                # esperandoRespuesta = True
+                while clienteMain.esperandoRespuesta == True:
+                    # print("Esperando respuesta del servidor...")
                     pass
                 #me conecto al socket y realizo la transferencia -> MESSI
 
