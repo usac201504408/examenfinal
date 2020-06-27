@@ -83,7 +83,7 @@ class clienteClass(object):
             elif (arregloTrama_split[0].encode() == COMMAND_FRR): #trama FRR file receive request
                 #conectarme al socket para recibir archivo MESSI
                 # print("Cliente conectandose a SOCKET para recibir archivo ")
-                NuevoClienteTCP = clienteTCP.clienteTCP('localhost' , 9800, 65495,9801)
+                NuevoClienteTCP = clienteTCP.clienteTCP(IP_TCP , 9800, 65495,TCP_PORT)
                 NuevoClienteTCP.recibircliente()    
                  
                 self.t2 = threading.Thread(name = 'Hilo audio',

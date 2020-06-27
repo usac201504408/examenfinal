@@ -13,7 +13,7 @@ class clienteTCP():
         #esto pasarlo a un metodo que haga el conect del puerto
         sock = socket.socket()
         sock.connect((self.addr, self.port1))
-
+        
 
         try:
             buff= self.buff

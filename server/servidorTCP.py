@@ -22,6 +22,7 @@ class servidorTCP(): #creamos una clase para el servidor
         server_socket = socket.socket() 
         server_socket.bind(('', self.port1))
         server_socket.listen(10) #1 conexion activa y 9 en cola
+        #server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try:
             #while True:
                 # self.server_socket.listen(100)
@@ -47,6 +48,8 @@ class servidorTCP(): #creamos una clase para el servidor
         server_socket = socket.socket()
         server_socket.bind(('', self.port1))
         server_socket.listen(10) #1 conexion activa y 9 en cola
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
         try:
             #while True:
                 server_socket.listen(100)
