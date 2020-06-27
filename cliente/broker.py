@@ -3,7 +3,7 @@ MQTT_HOST = "167.71.243.238"
 MQTT_PORT = 1883
 
 #JPGM Parametros de conexion TCP
-IP_TCP = "localhost" #167.71.243.238 localhost
+IP_TCP = "167.71.243.238" #167.71.243.238 localhost
 TCP_PORT = 9814
 
 #JPGM Credenciales MQTT
