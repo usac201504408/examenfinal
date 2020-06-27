@@ -145,7 +145,7 @@ class serverClass(object):
         self.client.connect(host=MQTT_HOST, port = MQTT_PORT) #Conectar al servidor remoto
 
     def conectarSocket(self):
-        self.NuevoServerTCP = servidorTCP.servidorTCP('localhost' , 9800, 65495,9801)
+        self.NuevoServerTCP = servidorTCP.servidorTCP( IP_TCP , 9800, 65495, TCP_PORT)
         self.NuevoServerTCP.inicializarServerSocket()
         
 

@@ -119,7 +119,7 @@ try:
                 print("Enviando archivo MAIN...")
                 #CYO empiezo a grabar el audio y enviarlo por el socket
                 os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
-                NuevoClienteTCP = clienteTCP.clienteTCP('localhost' , 9800, 65495,9801)
+                NuevoClienteTCP = clienteTCP.clienteTCP(IP_TCP , 9800, 65495,TCP_PORT)
                 NuevoClienteTCP.enviarcliente(duracion)
 
 
