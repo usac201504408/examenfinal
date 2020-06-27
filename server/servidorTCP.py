@@ -24,7 +24,8 @@ class servidorTCP(): #creamos una clase para el servidor
         server_socket.listen(10) #1 conexion activa y 9 en cola
         # server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # server_socket.settimeout(5)
-        # server_socket.settimeout(30)
+        server_socket.settimeout(5)
+
         try:
             #while True:
                 # self.server_socket.listen(100)
@@ -36,6 +37,7 @@ class servidorTCP(): #creamos una clase para el servidor
                     conn.sendfile(f, 0)
                     f.close()
                 conn.close()
+                time.sleep(5)
                 print("\n\nArchivo enviado a: ", addr)
         except Exception as exp:
             print("Ocurrio un error...:" + str(exp))
@@ -51,7 +53,7 @@ class servidorTCP(): #creamos una clase para el servidor
         server_socket.bind(('', self.port1))
         server_socket.listen(10) #1 conexion activa y 9 en cola
         # server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        # server_socket.settimeout(30)
+        server_socket.settimeout(5)
 
 
         try:
@@ -68,7 +70,7 @@ class servidorTCP(): #creamos una clase para el servidor
                         f.write(buff)
                     f.close()
                 conn.close()
-                time.sleep(61)
+                time.sleep(5)
                 print("\n\n recibido audio de: ", addr)
         except Exception as ex:
             print("Ocurrio un error...: " + str(ex))
