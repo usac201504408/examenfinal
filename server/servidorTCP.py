@@ -2,7 +2,7 @@
 
 import socket
 
-class servidor(): #creamos una clase para el servidor
+class servidorTCP(): #creamos una clase para el servidor
     def __init__(self,a,p,b,p1): #definimos las variables iniciales a utilizar
         self.addr = a
         self.port = p
@@ -10,7 +10,7 @@ class servidor(): #creamos una clase para el servidor
         self.buff = b #8 KB para buffer de transferencia de archivos
 
     def mandarservidor(self): #metodo para mandar un archivo de audio servidor
-        server_socket = socket.socket()
+        server_socket = socket.socket() 
         server_socket.bind((self.addr, self.port))
         server_socket.listen(10) #1 conexion activa y 9 en cola
         try:
@@ -52,6 +52,6 @@ class servidor(): #creamos una clase para el servidor
             #server_socket.shutdown()
             server_socket.close()
 
-Datos= servidor('localhost' , 9800, 65495,9801) #Definimos los valores iniciales
+Datos= servidorTCP('localhost' , 9800, 65495,9801) #Definimos los valores iniciales
 #Datos.mandarservidor()
 Datos.recibirservidor()

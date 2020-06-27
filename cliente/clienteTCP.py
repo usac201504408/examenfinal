@@ -2,7 +2,7 @@ import socket
 import os
 import logging
 
-class cliente():
+class clienteTCP():
     def __init__(self,a,p,b,p1):
         self.addr = a
         self.port = p
@@ -58,7 +58,7 @@ class cliente():
             sock.shutdown(socket.SHUT_WR)
             sock.close() #Se cierra el socket
 
-Datos= cliente('localhost' , 9800, 65495,9801)
+Datos= clienteTCP('localhost' , 9800, 65495,9801)
 #Datos.recibircliente()
 Datos.enviarcliente("5")
 #tengo 2 puertos porque tcp no me deja cerrar la conexion y reabrirla antes de 1 min

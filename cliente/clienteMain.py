@@ -1,4 +1,5 @@
 import clienteClass
+import classclienttcp
 import lecturaArchivos
 import comandosCliente
 from broker import *
@@ -115,14 +116,16 @@ try:
                 while esperandoRespuesta == True:                    
                     pass
                  #me conecto al socket y realizo la transferencia -> MESSI
-                print("Enviando archivo...")
-                #CYO empiezo a grabar el audio
+                print("Enviando archivo MAIN...")
+                #CYO empiezo a grabar el audio y enviarlo por el socket
+
+
 
                 #publico en topic de audios
                 #topic_audios = "audio/14/" + usuarioEnvio
                 #PENDIENTE GRABAR EL AUDIO Y GUARDARLO
 
-                os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
+                # os.system('arecord -d '+duracion+' -f U8 -r 8000 ../cliente/tempFiles/enviar.wav')
                 
                 
                 
