@@ -54,14 +54,14 @@ class serverClass(object):
                         print("sala asignada de " + str(carnetDestino) + " es : " + str(salaAsignada))
                         if(salaAsignada == destinatario):
                             #si tiene asignada la sala, entonces le envio la trama (SI ESTA VIVO) 
-                            
-                             
-                                   
-                            trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_FRR,str(carnetDestino),fileSize)
-                            #client.publish("comandos/14/" + str(carnetDestino), trama_redireccion, qos = 2, retain = False)
-                            self.publicar("comandos/14/" + str(carnetDestino), trama_redireccion)
-                            print("Enviando comando FRR al cliente destino " + str(carnetDestino) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
-                            self.NuevoServerTCP.mandarservidor()
+                            # se lee el archivo de alives
+                            estaVivo = alive.alives().getUsuarioAlive(carnetDestino)
+                            if(estaVivo == True): #si esta vivo envio                                                               
+                                trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_FRR,str(carnetDestino),fileSize)
+                                #client.publish("comandos/14/" + str(carnetDestino), trama_redireccion, qos = 2, retain = False)
+                                self.publicar("comandos/14/" + str(carnetDestino), trama_redireccion)
+                                print("Enviando comando FRR al cliente destino " + str(carnetDestino) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
+                                self.NuevoServerTCP.mandarservidor()
 
 
             print("termino de enviar a todos los usuarios en la sala")        
