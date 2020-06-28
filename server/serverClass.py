@@ -85,6 +85,14 @@ class serverClass(object):
                 trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_OK,remitente)
                 self.publicar("comandos/14/" + str(remitente), trama_redireccion)
                 print("Enviando comando OK al cliente remitente " + str(remitente) + " para enviar al destinatario " + str(destinatario))
+                self.NuevoServerTCP.recibirservidor()
+                t2 = threading.Thread(name = 'Contador de 1 segundo',
+                                    target = self.negociacionRedireccion,
+                                    args = ((str(destinatario), str(fileSize), str(nombreFile))),
+                                    daemon = True
+                                )
+                t2.start() 
+
 
             else:
                 print("")
@@ -179,7 +187,7 @@ class serverClass(object):
             tamanioFile =  arregloTrama_split[2]
 
             self.negociacionRemitente((str(destinatario), str(tamanioFile), str(nombreFile),remitente)
-            
+
             # trama_ok = comandosCliente.comandosCliente().getTrama(COMMAND_OK, str(remitente)) 
             # # client.publish("comandos/14/" + str(remitente), trama_ok, qos = 2, retain = False)
             # self.publicar("comandos/14/" + str(remitente), trama_ok)
