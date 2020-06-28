@@ -1,46 +1,77 @@
 
-import Crypto
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP
-import binascii
+from Crypto.Cipher import AES
 from globalconst import *
 
 
 class encripcion(object):
 
-    def __init__(self):
-        pass
+     def __init__(self):
+         pass
 
-    def encriptar(self, mensaje):
-        #volviendo a codificar los objetos de llave
-        #CAMBIAR EL TIPO DE CIFRADO QUE TRAE CARACTER $ QUE USAMOS COMO SEPARADOR
-        print(mensaje)
-        private_key = RSA.importKey(binascii.unhexlify(PRIVATE_KEY))
-        public_key = private_key.publickey()
-        public_key = RSA.importKey(binascii.unhexlify(PUBLIC_KEY))
-        cipher = PKCS1_OAEP.new(public_key)
-        mensaje_encript  = cipher.encrypt(mensaje)
-        return mensaje_encript
+     def encriptar(self, mensaje):
+         obj = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
+         texto_encriptado = obj.encrypt(mensaje)
+         return texto_encriptado
 
-    def desencriptar(self, mensaje):
-        #volviendo a codificar los objetos de llave
-        #CAMBIAR EL TIPO DE CIFRADO QUE TRAE CARACTER $ QUE USAMOS COMO SEPARADOR
-        private_key = RSA.importKey(binascii.unhexlify(PRIVATE_KEY))
-        cipher = PKCS1_OAEP.new(private_key)
-        mensaje_encript  = cipher.decrypt(mensaje)
-        print(mensaje_encript)
-        return mensaje_encript
-    
+     def desencriptar(self, mensaje):
+         obj2 = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
+         texto_desencriptado = obj2.decrypt(mensaje)
+         return texto_desencriptado
 
-# mensaje = "Hola mundo, soy un mensaje en texto plano, todo el mundo puede leerme."
-# mensaje = mensaje.encode()
-# texto_encript = encripcion().encriptar(mensaje)
-# # print("texto encriptado")
-# print(texto_encript)
+# variable1 = "hola"    
+# variable1 = variable1.encode()
+# texto_encript = encripcion().encriptar(str(variable1.decode()))
+# # # # print("texto encriptado")
+# # print(texto_encript)
+# # print(texto_encript)
+# print(type(texto_encript))
+# print(texto_encript.decode())
 
-# texto_decript = encripcion().desencriptar(texto_encript)
-# # print("dexto desencriptado")
+# arregloTrama = list()
+# comandoByte = bytes(COMMAND_CHAT)
+# # print(comandoByte)
+# arregloTrama.append(COMMAND_CHAT)
+# print(str(arregloTrama[0]))
+
+# trama1 = b'\x08$\xe6@\xff\xc5'
+# comando = trama1[:1]
+# comando = bytes(comando)
+# print(type(comando))
+
+
+# trama = bytes(COMMAND_CHAT)
+# trama = trama.decode()
+
+
+# if(trama.encode() == COMMAND_CHAT):
+#     print("es comando chat")
+#     # print(comando.decode())
+
+# # print(bytes(COMMAND_CHAT).decode())
+# dataencriptada = trama1[2:]
+# texto_decript = encripcion().desencriptar(dataencriptada)
+
 # print(texto_decript.decode())
+
+
+# # trama = bytes(str(trama).encode())
+# # trama = trama.decode()
+# arregloTrama = str(trama).split("$")
+# texto_decript = encripcion().desencriptar(arregloTrama[0])
+# print(texto_decript)
+
+
+# trama = bytes(b'\x08$\xe6@\xff\xc5')
+# print(trama)
+# trama = trama.decode()
+# arregloTrama = trama.split("$")
+
+# texto_decript = encripcion().desencriptar(dataencriptada)
+# # # # # print("dexto desencriptado")
+# # # # print(texto_decript)
+# # print(texto_decript)
+# # print(type(texto_decript))
+# print(texto_decript)
 
 
 

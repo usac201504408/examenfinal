@@ -10,3 +10,5 @@ Instrucciones de uso:
     3.2) EJecutar el comando: python3 serverMain.py
 
 4. Ya estan agregados los datos de prueba para que pueda correr individualmente cada uno de los proyectos. Si desea puede cambiar los archivos o agregar otros datos para sus pruebas
+
+5. ENCRIPCION: la encripcion se deshabilita en el archivo globalconst.py en la variable ENCRIPTARINFO

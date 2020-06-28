@@ -27,12 +27,13 @@ class comandosCliente(object):
                 #se valida si esta activa la bandera de encripcion -- ya viene convertido a binario
                 if(ENCRIPTARINFO == 1):
                     #se encripta el mensaje
-                    print("esta encriptando")
-                    variable1 = encripcion.encripcion().encriptar(variable1) 
+                    # print("esta encriptando")
+                    variable1 = encripcion.encripcion().encriptar(str(variable1.decode())) 
                     trama = comando + bytes(separador) + variable1
-                    print(trama)
+                    # print(trama)
                 else:
                     #no se encripta el mensaje y se maneja como de costumbre
+                    
                     trama = comando + bytes(separador) + bytes(variable1)
 
             elif(comando == COMMAND_ACK): #comando para acknowledge
@@ -49,21 +50,37 @@ class comandosCliente(object):
             
         
 
-    def splitTramaCliente(self, trama, separador = "$"):  
-        trama = bytes(trama)
-        trama = trama.decode()
-        arregloTrama = trama.split(separador)
+    def splitTramaCliente(self, trama, separador = "$"): 
 
-        #validacion de desencripcion
-        #si es chat, se procede a desencriptar el mensaje si esta activa la bandera
+       
         
-        if(arregloTrama[0].encode() == COMMAND_CHAT and ENCRIPTARINFO == 1):
-            #desencripto el mensaje y lo vuelvo a guardar en el arreglo
-            print(arregloTrama[1])
-            arregloTrama[1] = encripcion.encripcion().desencriptar(bytes(arregloTrama[1])).decode()
-            
+        if(ENCRIPTARINFO == 0):
+            trama = bytes(trama)
+            trama = trama.decode()
+            arregloTrama = trama.split(separador)
+            return arregloTrama
+        else:    
+           
+            comando = trama[:1]
+            if(comando == COMMAND_CHAT): 
+                arregloTrama = list()
+                #se procede a partir la trama                         
+                dataencriptada = trama[2:]
+                comandoByte = bytes(COMMAND_CHAT)
+                arregloTrama.append(comandoByte.decode())
+                #se desencripta la data
+                # print("activa encripcion") 
+                texto_decript = encripcion.encripcion().desencriptar(dataencriptada)
+                arregloTrama.append(texto_decript.decode())
+                return arregloTrama
+            else: #esta activa la encripcion pero es otro comando entonces prosigo con normalidad
+                trama = bytes(trama)
+                trama = trama.decode()
+                arregloTrama = trama.split(separador)
+                return arregloTrama
         
-        return arregloTrama
+
+        
         
             
 #codigo de test clase

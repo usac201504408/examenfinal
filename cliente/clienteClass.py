@@ -59,7 +59,8 @@ class clienteClass(object):
         topicBase = splitTopic[0]
 
         if(topicBase != "audio"):
-                
+            # print("payload")
+            # print(msg.payload)
             arregloTrama_split = comandosCliente.comandosCliente().splitTramaCliente(msg.payload)
             # print(arregloTrama_split)
             
