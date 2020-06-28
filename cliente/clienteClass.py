@@ -23,7 +23,7 @@ class clienteClass(object):
             #JPGM hago un publish para decir que estoy vivo
             trama = comandosCliente.comandosCliente().getTrama(COMMAND_ALIVE, self.usuarioCliente)       
             self.client.publish("comandos/14/" + str(self.usuarioCliente), trama, qos = 2, retain = False)
-            time.sleep(20)
+            time.sleep(ALIVE_PERIOD)
 
     def hiloAudio(self):
         #JPGM el archivo de audio se sobreescribe en el mismo archivo cada vez que se recibe
