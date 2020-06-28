@@ -25,9 +25,12 @@ class serverClass(object):
             # client.publish("comandos/14/201504408", trama, qos = 2, retain = False)
             time.sleep(20)
 
+   
+
     def negociacionRedireccion(self, destinatario, fileSize, nombreFile):
     
         if(str(destinatario).isdigit() == True): #es un carnet
+            
              # se lee el archivo de alives
             estaVivo = alive.alives().getUsuarioAlive(destinatario)
             if(estaVivo == True): #si esta vivo envio  
@@ -40,7 +43,8 @@ class serverClass(object):
                 # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT) #Definimos los valores iniciales            
                 self.NuevoServerTCP.mandarservidor()
             else:
-                print("no esta vivo")
+                print("")
+                print("El usuario: " + str(destinatario) + " no esta vivo.")
 
         else: #es una sala, tengo que enciclar hasta mandar a todos, revisando quienes estan en esa sala
             #con el archivo de listado de personas asignadas a salas
@@ -69,7 +73,60 @@ class serverClass(object):
                                 self.NuevoServerTCP.mandarservidor()
 
 
-            print("termino de enviar a todos los usuarios en la sala")        
+            print("termino de enviar a todos los usuarios en la sala")     
+
+    def negociacionRemitente(self, destinatario, fileSize, nombreFile, remitente):
+    
+        if(str(destinatario).isdigit() == True): #es un carnet
+            
+             # se lee el archivo de alives
+            estaVivo = alive.alives().getUsuarioAlive(destinatario)
+            if(estaVivo == True): #si esta vivo envio  
+                trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_OK,remitente)
+                self.publicar("comandos/14/" + str(remitente), trama_redireccion)
+                print("Enviando comando OK al cliente remitente " + str(remitente) + " para enviar al destinatario " + str(destinatario))
+
+            else:
+                print("")
+                print("El usuario: " + str(destinatario) + " no esta vivo.")
+                #mando comando NO
+
+        else: #es una sala, tengo que enciclar hasta mandar a todos, revisando quienes estan en esa sala
+            #con el archivo de listado de personas asignadas a salas
+            contador = 0
+            usuariosRegistrados = lecturaArchivos.LecturaArchivo("usuarios.txt").getArreglo()
+            for usuarioDestino in usuariosRegistrados:
+                #recorro cada item del arreglo para ver si le toca recibir el archivo o no
+                #verifico en todas las salas que tenga asignadas
+                objetoUsuario = usuarioDestino.split(",") 
+                carnetDestino = objetoUsuario[0]
+                longitud = len(objetoUsuario)
+                #si la longitud es mayor a dos, la persona esta asignada a alguna sala, si no no.
+                if(longitud >= 2):
+                    for index in range(2,longitud):
+                        #voy verificando si la sala que tiene asignada es la destino
+                        salaAsignada = objetoUsuario[index]
+                        print("sala asignada de " + str(carnetDestino) + " es : " + str(salaAsignada))
+                        if(salaAsignada == destinatario):
+                            #si tiene asignada la sala, entonces le envio la trama (SI ESTA VIVO) 
+                            # se lee el archivo de alives
+                            estaVivo = alive.alives().getUsuarioAlive(carnetDestino)
+                            if(estaVivo == True): #si esta vivo envio  
+                                contador = contador + 1
+
+            if(contador > 0): #significa que si hay destinatarios disponibles
+                trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_OK,remitente)
+                self.publicar("comandos/14/" + str(remitente), trama_redireccion)
+                print("Enviando comando OK al cliente remitente " + str(remitente) + " para enviar al destinatario " + str(destinatario))   
+                #procedo a hacer la negociacion ahora de redireccion a destinatarios
+                self.NuevoServerTCP.recibirservidor()
+                t2 = threading.Thread(name = 'Contador de 1 segundo',
+                                    target = self.negociacionRedireccion,
+                                    args = ((str(destinatario), str(fileSize), str(nombreFile))),
+                                    daemon = True
+                                )
+                t2.start()                                                                 
+                                
 
  
 
@@ -116,26 +173,30 @@ class serverClass(object):
             #se procede a evaluar si le damos respuesta de NO o de OK
             #se extrae el remitente del topic    
             remitente = str(msg.topic).split("/")[2]
-            trama_ok = comandosCliente.comandosCliente().getTrama(COMMAND_OK, str(remitente)) 
-            # client.publish("comandos/14/" + str(remitente), trama_ok, qos = 2, retain = False)
-            self.publicar("comandos/14/" + str(remitente), trama_ok)
-            print("Se envio un comando OK al cliente " + str(remitente))
-            #se procede a recibir el archivo del cliente MESSI
-            # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT)
-            self.NuevoServerTCP.recibirservidor()
-
-
-
             #luego de recibirlo procedo a hacer la negociacion con el destinatario, inicio un hilo
             nombreFile = "archivo.wav"
             destinatario = arregloTrama_split[1]
             tamanioFile =  arregloTrama_split[2]
-            t2 = threading.Thread(name = 'Contador de 1 segundo',
-                                target = self.negociacionRedireccion,
-                                args = ((str(destinatario), str(tamanioFile), str(nombreFile))),
-                                daemon = True
-                            )
-            t2.start()
+
+            self.negociacionRemitente((str(destinatario), str(tamanioFile), str(nombreFile),remitente)
+            
+            # trama_ok = comandosCliente.comandosCliente().getTrama(COMMAND_OK, str(remitente)) 
+            # # client.publish("comandos/14/" + str(remitente), trama_ok, qos = 2, retain = False)
+            # self.publicar("comandos/14/" + str(remitente), trama_ok)
+            # print("Se envio un comando OK al cliente " + str(remitente))
+            # #se procede a recibir el archivo del cliente MESSI
+            # # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT)
+
+
+            # self.NuevoServerTCP.recibirservidor()
+
+
+            # t2 = threading.Thread(name = 'Contador de 1 segundo',
+            #                     target = self.negociacionRedireccion,
+            #                     args = ((str(destinatario), str(tamanioFile), str(nombreFile))),
+            #                     daemon = True
+            #                 )
+            # t2.start()
             
       
         

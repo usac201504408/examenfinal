@@ -25,6 +25,8 @@ class comandosCliente(object):
             trama = comando + bytes(separador) + bytes(variable1)
         elif(comando == COMMAND_OK): #comando para OK
             trama = comando + bytes(separador) + bytes(variable1)
+        elif(comando == COMMAND_NO): #comando para NO
+            trama = comando + bytes(separador) + bytes(variable1)
         elif(comando == COMMAND_FRR): #comando para FRR
             variable2 = variable2.encode()
             trama = comando + bytes(separador) + bytes(variable1) + bytes(separador) + bytes(variable2)
