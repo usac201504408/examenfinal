@@ -186,7 +186,7 @@ class serverClass(object):
             destinatario = arregloTrama_split[1]
             tamanioFile =  arregloTrama_split[2]
 
-            self.negociacionRemitente((str(destinatario), str(tamanioFile), str(nombreFile),remitente)
+            self.negociacionRemitente(str(destinatario), str(tamanioFile), str(nombreFile),remitente)
 
             # trama_ok = comandosCliente.comandosCliente().getTrama(COMMAND_OK, str(remitente)) 
             # # client.publish("comandos/14/" + str(remitente), trama_ok, qos = 2, retain = False)
