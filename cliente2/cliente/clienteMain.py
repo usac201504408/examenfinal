@@ -20,7 +20,7 @@ usuarioCarnet = usuariosFile.readline()
 
 # for usuario in usuariosFile:
 #     usuarioCarnet = str(usuario)
-print(usuarioCarnet)
+
 #se instancia la clase
 clienteMain = clienteClass.clienteClass(usuarioCarnet, False)
 clienteMain.conectarMQTT()
@@ -28,9 +28,7 @@ clienteMain.iniciarLoggin()
 NuevoClienteTCP = clienteTCP.clienteTCP(IP_TCP , 9800, 65495,TCP_PORT)
 #suscribirse a todos los topics del archivo - leo salas y le agrego el usuario, lo suscribo a su topic de comandos
 topicComandos_file = "comandos/14/" + usuarioCarnet
-print(topicComandos_file)
 topicUsuario_file = "usuarios/14/" + usuarioCarnet
-print(topicUsuario_file)
 clienteMain.suscribirse(topicUsuario_file)
 clienteMain.suscribirse(topicComandos_file)
 

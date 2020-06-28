@@ -186,25 +186,25 @@ class serverClass(object):
             destinatario = arregloTrama_split[1]
             tamanioFile =  arregloTrama_split[2]
 
-            self.negociacionRemitente(str(destinatario), str(tamanioFile), str(nombreFile),remitente)
+            # self.negociacionRemitente(str(destinatario), str(tamanioFile), str(nombreFile),remitente)
 
-            # trama_ok = comandosCliente.comandosCliente().getTrama(COMMAND_OK, str(remitente)) 
+            trama_ok = comandosCliente.comandosCliente().getTrama(COMMAND_OK, str(remitente)) 
             # # client.publish("comandos/14/" + str(remitente), trama_ok, qos = 2, retain = False)
-            # self.publicar("comandos/14/" + str(remitente), trama_ok)
-            # print("Se envio un comando OK al cliente " + str(remitente))
+            self.publicar("comandos/14/" + str(remitente), trama_ok)
+            print("Se envio un comando OK al cliente " + str(remitente))
             # #se procede a recibir el archivo del cliente MESSI
             # # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT)
 
 
-            # self.NuevoServerTCP.recibirservidor()
+            self.NuevoServerTCP.recibirservidor()
 
 
-            # t2 = threading.Thread(name = 'Contador de 1 segundo',
-            #                     target = self.negociacionRedireccion,
-            #                     args = ((str(destinatario), str(tamanioFile), str(nombreFile))),
-            #                     daemon = True
-            #                 )
-            # t2.start()
+            t2 = threading.Thread(name = 'Contador de 1 segundo',
+                                 target = self.negociacionRedireccion,
+                                 args = ((str(destinatario), str(tamanioFile), str(nombreFile))),
+                                 daemon = True
+                             )
+            t2.start()
             
       
         
