@@ -14,7 +14,7 @@ serverMain = serverClass.serverClass(usuarioCarnet)
 serverMain.conectarMQTT()
 serverMain.iniciarLoggin()
 serverMain.conectarSocket()
-
+serverMain.empezarAlives()
 
 #suscribirse a todos los topics del archivo
 topics = lecturaArchivos.LecturaArchivo("topics.txt").getArreglo()

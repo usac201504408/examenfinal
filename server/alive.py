@@ -31,3 +31,8 @@ class alives(object):
         else:
             return True
 
+    def limpiarAlives(self):
+        objetoArchivo = lecturaArchivos.LecturaArchivo("alives.txt")
+        objetoArchivo.limpiarArchivo()
+        
+

@@ -20,9 +20,15 @@ class LecturaArchivo(object):
         archivo.write(textoAppend)
         archivo.close()
 
+    def limpiarArchivo(self):
+        archivo = open(self.nombreArchivo, 'w')
+        archivo.write("")
+        archivo.close()
+
 
 #Ejemplo de consumo de la clase
-# nuevoarreglo = LecturaArchivo("topics.txt").getArreglo()
+# nuevoarreglo = LecturaArchivo("alives.txt")
+# nuevoarreglo.limpiarArchivo()
 # print(nuevoarreglo)
      
 

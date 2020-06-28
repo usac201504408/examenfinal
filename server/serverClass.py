@@ -156,6 +156,9 @@ class serverClass(object):
 
     def desconectarSocket(self):
         self.NuevoServerTCP.desconectarSocket()
+
+    def empezarAlives(self):
+        alive.alives().limpiarAlives()
         
 
     def logginWriteInfo(self, mensaje):
