@@ -48,7 +48,7 @@ clienteMain.iniciarLoop()
 try:
     while True:
 
-        print("Hola, bienvenido al chat del grupo 14, and i'll tell you all about it when i see you again")
+        print("Hola cliente " + str(usuarioCarnet) + " bienvenido al examen final del grupo 14.")
         print("Menu")
         print("1. Enviar texto")
         print("2. Enviar mensaje de voz")
