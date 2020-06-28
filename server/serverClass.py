@@ -28,14 +28,19 @@ class serverClass(object):
     def negociacionRedireccion(self, destinatario, fileSize, nombreFile):
     
         if(str(destinatario).isdigit() == True): #es un carnet
-            trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_FRR,destinatario,fileSize)
-            #client.publish("comandos/14/" + str(destinatario), trama_redireccion, qos = 2, retain = False)
-            
-            self.publicar("comandos/14/" + str(destinatario), trama_redireccion)
-            print("Enviando comando FRR al cliente destino " + str(destinatario) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
-            #se empieza la transferencia
-            # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT) #Definimos los valores iniciales            
-            self.NuevoServerTCP.mandarservidor()
+             # se lee el archivo de alives
+            estaVivo = alive.alives().getUsuarioAlive(destinatario)
+            if(estaVivo == True): #si esta vivo envio  
+                trama_redireccion = comandosCliente.comandosCliente().getTrama(COMMAND_FRR,destinatario,fileSize)
+                #client.publish("comandos/14/" + str(destinatario), trama_redireccion, qos = 2, retain = False)
+                
+                self.publicar("comandos/14/" + str(destinatario), trama_redireccion)
+                print("Enviando comando FRR al cliente destino " + str(destinatario) + " nombre archivo: " + str(nombreFile) + " de tamanio " + str(fileSize))
+                #se empieza la transferencia
+                # NuevoServerTCP = servidorTCP.servidorTCP(IP_TCP , 9800, 65495,TCP_PORT) #Definimos los valores iniciales            
+                self.NuevoServerTCP.mandarservidor()
+            else:
+                print("no esta vivo")
 
         else: #es una sala, tengo que enciclar hasta mandar a todos, revisando quienes estan en esa sala
             #con el archivo de listado de personas asignadas a salas
