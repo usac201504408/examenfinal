@@ -1,5 +1,6 @@
 #JPGM clase para comandos de cliente
 from globalconst import *
+import encripcion
 
 class comandosCliente(object):
 
@@ -23,7 +24,17 @@ class comandosCliente(object):
             elif(comando == COMMAND_ALIVE): #alive usa 1 variable y una constante
                 trama = comando + bytes(separador) + bytes(variable1)
             elif(comando == COMMAND_CHAT): #comando para chat
-                trama = comando + bytes(separador) + bytes(variable1)
+                #se valida si esta activa la bandera de encripcion -- ya viene convertido a binario
+                if(ENCRIPTARINFO == 1):
+                    #se encripta el mensaje
+                    print("esta encriptando")
+                    variable1 = encripcion.encripcion().encriptar(variable1) 
+                    trama = comando + bytes(separador) + variable1
+                    print(trama)
+                else:
+                    #no se encripta el mensaje y se maneja como de costumbre
+                    trama = comando + bytes(separador) + bytes(variable1)
+
             elif(comando == COMMAND_ACK): #comando para acknowledge
                 trama = comando + bytes(separador) + bytes(variable1)
             elif(comando == COMMAND_FRR): #comando para FRR
@@ -38,12 +49,19 @@ class comandosCliente(object):
             
         
 
-    def splitTramaCliente(self, trama, separador = "$"):
-        #MVFC verifico si le muestro o no al usuario este mensaje
-        #las tramas ALIVE emitidas por el cliente no se las muestro a el
+    def splitTramaCliente(self, trama, separador = "$"):  
         trama = bytes(trama)
         trama = trama.decode()
         arregloTrama = trama.split(separador)
+
+        #validacion de desencripcion
+        #si es chat, se procede a desencriptar el mensaje si esta activa la bandera
+        
+        if(arregloTrama[0].encode() == COMMAND_CHAT and ENCRIPTARINFO == 1):
+            #desencripto el mensaje y lo vuelvo a guardar en el arreglo
+            print(arregloTrama[1])
+            arregloTrama[1] = encripcion.encripcion().desencriptar(bytes(arregloTrama[1])).decode()
+            
         
         return arregloTrama
         

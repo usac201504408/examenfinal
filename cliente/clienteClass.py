@@ -78,6 +78,7 @@ class clienteClass(object):
                 self.esperandoRespuesta = False    
                 pass
             elif (arregloTrama_split[0].encode() == COMMAND_CHAT):
+                
                 logging.info("El cliente del topic " + str(msg.topic) + " da el comando CHAT y dice: " + str(arregloTrama_split[1]))
                
             elif (arregloTrama_split[0].encode() == COMMAND_FRR): #trama FRR file receive request
