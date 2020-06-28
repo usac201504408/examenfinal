@@ -13,7 +13,6 @@ usuarioCarnet = "" #NUMERO DE CARNET DEL CLIENTE
 serverMain = serverClass.serverClass(usuarioCarnet)
 serverMain.conectarMQTT()
 serverMain.iniciarLoggin()
-serverMain.desconectarSocket()
 serverMain.conectarSocket()
 serverMain.empezarAlives()
 
