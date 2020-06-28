@@ -4,7 +4,7 @@ MQTT_PORT = 1883
 
 #JPGM Parametros de conexion TCP
 IP_TCP = "167.71.243.238" #167.71.243.238
-TCP_PORT = 9814
+TCP_PORT = 9884
 
 #JPGM Credenciales MQTT
 MQTT_USER = "proyectos"
