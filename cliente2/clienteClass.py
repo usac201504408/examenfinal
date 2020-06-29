@@ -26,9 +26,12 @@ class clienteClass(object):
             time.sleep(ALIVE_PERIOD)
 
     def hiloAudio(self):
-        #JPGM el archivo de audio se sobreescribe en el mismo archivo cada vez que se recibe
+        #CJYO condicion para encripcion archivo
         try:
-            os.system('aplay ../cliente/tempFiles/recibido.wav')
+            if(ENCRIPTARINFO == 1):
+                os.system('aplay ../cliente/tempFiles/recibidoDecript.wav')
+            else:
+                os.system('aplay ../cliente/tempFiles/recibido.wav')
         except Exception as ex:
             print("error: " + ex)
 
@@ -59,7 +62,8 @@ class clienteClass(object):
         topicBase = splitTopic[0]
 
         if(topicBase != "audio"):
-                
+            # print("payload")
+            # print(msg.payload)
             arregloTrama_split = comandosCliente.comandosCliente().splitTramaCliente(msg.payload)
             # print(arregloTrama_split)
             
@@ -78,6 +82,7 @@ class clienteClass(object):
                 self.esperandoRespuesta = False    
                 pass
             elif (arregloTrama_split[0].encode() == COMMAND_CHAT):
+                
                 logging.info("El cliente del topic " + str(msg.topic) + " da el comando CHAT y dice: " + str(arregloTrama_split[1]))
                
             elif (arregloTrama_split[0].encode() == COMMAND_FRR): #trama FRR file receive request

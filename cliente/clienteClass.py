@@ -26,9 +26,12 @@ class clienteClass(object):
             time.sleep(ALIVE_PERIOD)
 
     def hiloAudio(self):
-        #JPGM el archivo de audio se sobreescribe en el mismo archivo cada vez que se recibe
+        #CJYO condicion para encripcion archivo
         try:
-            os.system('aplay ../cliente/tempFiles/recibido.wav')
+            if(ENCRIPTARINFO == 1):
+                os.system('aplay ../cliente/tempFiles/recibidoDecript.wav')
+            else:
+                os.system('aplay ../cliente/tempFiles/recibido.wav')
         except Exception as ex:
             print("error: " + ex)
 
