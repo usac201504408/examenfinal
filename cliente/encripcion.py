@@ -5,18 +5,58 @@ from globalconst import *
 
 class encripcion(object):
 
-     def __init__(self):
-         pass
+    def __init__(self):
+        pass
 
-     def encriptar(self, mensaje):
-         obj = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
-         texto_encriptado = obj.encrypt(mensaje)
-         return texto_encriptado
+    def encriptar(self, mensaje):
+        obj = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
+        texto_encriptado = obj.encrypt(mensaje)
+        return texto_encriptado
 
-     def desencriptar(self, mensaje):
-         obj2 = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
-         texto_desencriptado = obj2.decrypt(mensaje)
-         return texto_desencriptado
+    def desencriptar(self, mensaje):
+        obj2 = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
+        texto_desencriptado = obj2.decrypt(mensaje)
+        return texto_desencriptado
+
+    def encriptarFile(self, archivo):
+        obj = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
+        # archivo = open("../cliente/tempFiles/recibido.wav", "rb")
+        # bytesfile = archivo.readlines()
+        with open("../cliente/tempFiles/enviar.wav", "rb") as archivo:
+            todosbytes = archivo.read()
+            texto_encriptado = obj.encrypt(todosbytes)
+        
+        archivo.close()
+
+        with open("../cliente/tempFiles/enviarEncript.wav", "wb") as archivoencript:
+            archivoencript.write(texto_encriptado)
+        
+        archivoencript.close()
+        
+        return texto_encriptado
+
+    def desencriptarFile(self, archivo):
+        obj = AES.new(LLAVEAES, AES.MODE_CFB, IV_ENCRIPT)
+        # archivo = open("../cliente/tempFiles/recibido.wav", "rb")
+        # bytesfile = archivo.readlines()       
+
+        with open("../cliente/tempFiles/recibidoEncript.wav", "rb") as archivoencript:
+            todosbytes = archivoencript.read()
+            texto_desencriptado = obj.decrypt(todosbytes)
+        
+        archivoencript.close()
+
+
+        with open("../cliente/tempFiles/recibidoDecript.wav", "wb") as archivo:
+            archivo.write(texto_desencriptado)
+        
+        archivo.close()
+        
+        return texto_desencriptado
+
+        
+# encripcion().encriptarFile("")
+# encripcion().desencriptarFile("")
 
 # variable1 = "hola"    
 # variable1 = variable1.encode()
